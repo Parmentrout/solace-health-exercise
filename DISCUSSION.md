@@ -6,6 +6,7 @@ I'm going to use this as a chance to outline my thoughts and things I would impr
 PR - https://github.com/Parmentrout/solace-health-exercise/pull/1
 
 **High Level**
+- I got the database spun up locally with docker-compose and seeded
 - I added filtering and pagination to the query and adjusted the query to take those in as optional parameters.
 - Adjusted the datasource to fix the typing bug.
 - Tried to separate the controller layer from the database layer for better testing.

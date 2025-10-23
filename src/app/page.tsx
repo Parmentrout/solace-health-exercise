@@ -10,7 +10,6 @@ export default function Home() {
     console.log("fetching advocates...");
     fetch("/api/advocates").then((response) => {
       response.json().then((jsonResponse) => {
-        console.log(jsonResponse);
         setAdvocates(jsonResponse.data);
         setFilteredAdvocates(jsonResponse.data);
       });

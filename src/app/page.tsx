@@ -36,12 +36,14 @@ export default function Home() {
         <input
           type="text"
           value={like}
+          aria-label="Provider search box"
           onChange={(e) => setLike(e.target.value)}
           placeholder="Search advocates…"
           className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
         />
         <button
           type="submit"
+          aria-label="Search by provider"
           className="rounded-lg bg-teal-600 px-4 py-2 text-white font-medium hover:bg-teal-950 focus:outline-none focus:ring-teal-500"
           disabled={loading}
         >
@@ -49,7 +51,7 @@ export default function Home() {
         </button>
       </form>
 
-      <div className="mt-6 w-full px-8">
+      <div aria-label="List of advocates including name, city, speciality and experience" className="mt-6 w-full px-8">
         <div className="flex bg-gray-100 text-sm font-semibold text-gray-700">
           <div className="flex-1 px-4 py-3">First Name</div>
           <div className="flex-1 px-4 py-3">Last Name</div>

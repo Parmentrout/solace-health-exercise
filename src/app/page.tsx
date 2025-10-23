@@ -9,7 +9,7 @@ export default function Home() {
   const [like, setLike] = React.useState("");
   const [loading, setLoading] = useState(false);
 
-  // TODO - I left out error handling on fetch because I think ideally it would navigate to a /error page to inform the user. For this exercise I just ran out of time.
+  // TODO - I left out error handling on fetch because I think ideally it would navigate to a /error page to inform the user. For this exercise I just ran out of time to implement a router.
   useEffect(() => {
     fetch("/api/advocates").then((response) => {
       response.json().then((jsonResponse) => {

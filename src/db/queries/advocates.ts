@@ -2,7 +2,7 @@ import { or, ilike } from 'drizzle-orm';
 import db from '@/db';
 import { advocates } from '../schema';
 
-export const getAdvocatesQuery = async (limit: number, offset: number, page?: number, like?: string) => {
+export const getAdvocatesQuery = async (limit: number, offset: number, like?: string) => {
   // Where filters: https://orm.drizzle.team/docs/select#filters
   const where = like
     ? or(

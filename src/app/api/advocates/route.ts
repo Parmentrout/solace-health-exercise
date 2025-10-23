@@ -9,9 +9,7 @@ export async function GET(req: NextRequest) {
     const offset = (pageNumber - 1) * limit || 0;
 
     const like = (searchParams.get('like') || '').trim().toLowerCase();
-
-    const results = getAdvocatesQuery(limit, offset, pageNumber, like);
-
+    const results = await getAdvocatesQuery(limit, offset, like);
     return Response.json({ results });
   } catch (error) {
     console.error(`GET /api/advocates failed from ${req.referrer}`, error);

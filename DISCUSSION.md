@@ -12,6 +12,7 @@ PR - https://github.com/Parmentrout/solace-health-exercise/pull/1
 - Tried to separate the controller layer from the database layer for better testing.
 
 **A couple suggestions / improvements** 
+- We are missing some indexes in the database for the filtering. I would recommend we add some on all searchable fields.
 - Drizzle took a second to understand but I believe I got the query syntax correct. Ideally I'd like to dive deeper into the framework before trusting my query with production data and see the generated SQL.
 - I would suggest a DI framework like TypeDI mixed with TypeORM as it might make unit testing a little easier.
 - I added a Jest configuration to start working on unit tests, but would also recommend an in-memory server like `pgmem` to run full integration tests.

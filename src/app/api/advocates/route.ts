@@ -1,12 +1,25 @@
-import db from "../../../db";
-import { advocates } from "../../../db/schema";
-import { advocateData } from "../../../db/seed/advocates";
+import { NextRequest } from "next/server";
+import { getAdvocatesQuery } from "@/db/queries/advocates";
 
-export async function GET() {
-  // Uncomment this line to use a database
-  // const data = await db.select().from(advocates);
+export async function GET(req: NextRequest) {
 
-  const data = advocateData;
+  try {
+    const { searchParams } = new URL(req.url)
+    const pageNumber = Number(searchParams.get('page')) || 1;
+    const limit = Number(searchParams.get('limit')) || 100;
+    const offset = (pageNumber - 1) * limit || 0;
 
-  return Response.json({ data });
+    const like = (searchParams.get('like') || '').trim().toLowerCase();
+
+    const results = getAdvocatesQuery(limit, offset, pageNumber, like)
+
+    return Response.json({ results });
+  } catch (error) {
+    console.error(`GET /api/advocates failed from ${req.referrer}`, error);
+    return new Response(
+      JSON.stringify({
+        error: 'Failed to fetch advocate records'
+      }),
+      { status: 500, headers: { 'Content-Type': 'application/json' }});
+  }
 }

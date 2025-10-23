@@ -9,6 +9,7 @@ export default function Home() {
   const [like, setLike] = React.useState("");
   const [loading, setLoading] = useState(false);
 
+  // TODO - I left out error handling on fetch because I think ideally it would navigate to a /error page to inform the user. For this exercise I just ran out of time.
   useEffect(() => {
     fetch("/api/advocates").then((response) => {
       response.json().then((jsonResponse) => {
@@ -29,6 +30,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col min-h-screen items-center justify-center bg-gray-50 p-8">
+      {/* TODO - This header needs to stay sticky up top, along with the form and the headers */}
       <h1 className="text-4xl font-bold mb-6" style={styles}>Solace Advocates</h1>
       <form onSubmit={handleSearch} className="w-full flex max-w-md gap-2">
         <input

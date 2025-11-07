@@ -6,7 +6,8 @@ import { Advocate } from "./models/advocate";
 
 export default function Home() {
   const [advocates, setAdvocates] = useState<Advocate[]>([]);
-  const [like, setLike] = React.useState("");
+  const [like, setLike] = React.useState('');
+  const [filter] = React.useState('');
   const [loading, setLoading] = useState(false);
 
   // TODO - I left out error handling on fetch because I think ideally it would navigate to a /error page to inform the user. For this exercise I just ran out of time to implement a router.
@@ -23,6 +24,19 @@ export default function Home() {
     setLoading(true);
 
     const response = await fetch(`/api/advocates?like=${like}`);
+    const json = await response.json();
+    setAdvocates(json.results || []);
+    setLoading(false);
+  }
+
+  const handleSort = async (event: any) => {
+    setLoading(true);
+    const sort = event.target.value;
+    if (!sort) {
+      setLoading(false);
+      return;
+    };
+    const response = await fetch(`/api/advocates?sort=${sort}`);
     const json = await response.json();
     setAdvocates(json.results || []);
     setLoading(false);
@@ -49,6 +63,11 @@ export default function Home() {
         >
           {loading ? "Searching..." : "Search"}
         </button>
+        <select value={filter} onChange={handleSort}>
+          <option value="">--- Select Sort ----</option>
+          <option value="first_name">First Name</option>
+          <option value="last_name">Last Name</option>
+        </select>
       </form>
 
       <div aria-label="List of advocates including name, city, speciality and experience" className="mt-6 w-full px-8">

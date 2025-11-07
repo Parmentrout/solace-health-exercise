@@ -1,3 +1,3 @@
 export const styles = {
-   color: '#265b4e',
+  color: '#265b4e',
 };

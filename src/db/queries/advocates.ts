@@ -2,7 +2,18 @@ import { or, ilike } from 'drizzle-orm';
 import db from '@/db';
 import { advocates } from '../schema';
 
-export const getAdvocatesQuery = async (limit: number, offset: number, like?: string) => {
+const sortMapping = [
+  {
+    columnName: 'created_at',
+    entity: advocates.createdAt,
+  },
+  {
+    columnName: 'first_name',
+    entity: advocates.firstName,
+  },
+];
+
+export const getAdvocatesQuery = async (limit: number, offset: number, sort?: string, like?: string) => {
   // Where filters: https://orm.drizzle.team/docs/select#filters
   const where = like
     ? or(
@@ -12,5 +23,8 @@ export const getAdvocatesQuery = async (limit: number, offset: number, like?: st
       )
     : undefined;
 
-  return db.select().from(advocates).where(where).orderBy(advocates.createdAt).limit(limit).offset(offset);
+    const mapSortToType = sortMapping.find(mapping => mapping.columnName === sort);
+    const orderBy = !mapSortToType ? advocates.createdAt : mapSortToType.entity;
+
+  return db.select().from(advocates).where(where).orderBy(orderBy).limit(limit).offset(offset);
 };
